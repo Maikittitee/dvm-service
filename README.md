@@ -35,7 +35,7 @@ pip3 install -r requirements.txt
 
 ### Run development server
 ```bash
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+fastapi dev main.py   
 ```
 
 ### Test API
