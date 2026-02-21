@@ -1,7 +1,9 @@
+import uuid
 from fastapi import APIRouter, HTTPException, status
 from app.schemas.dispense import (
     DispenseRequest,
     DispenseResponse,
+    DispenseStatusEnum,
     AisleStatusResponse,
     ErrorResponse,
 )
@@ -72,3 +74,23 @@ async def dispense_from_aisle(
 
     response = await service.dispense(request)
     return response
+
+
+@router.post(
+    "/aisle/{aisle_number}/dispense/test",
+    response_model=DispenseResponse,
+    responses={
+        200: {"description": "Test dispense operation (no real dispense)"},
+    },
+)
+async def test_dispense_from_aisle(
+    aisle_number: int,
+    force: bool = False,
+) -> DispenseResponse:
+    return DispenseResponse(
+        success=True,
+        aisle_number=aisle_number,
+        status=DispenseStatusEnum.SUCCESS,
+        message=f"Test dispense from aisle {aisle_number} successful (no real dispense)",
+        transaction_id=str(uuid.uuid4()),
+    )

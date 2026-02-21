@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     vmc_max_retries: int = 5
 
     api_prefix: str = "/api/v1"
+    api_port: int = 8000
 
     class Config:
         env_file = ".env"
